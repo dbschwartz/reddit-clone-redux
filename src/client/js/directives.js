@@ -31,4 +31,15 @@ app.directive('contenteditable', ['$sce', function($sce) {
   };
 }]);
 
+app.directive('navbar', function(){
+  return {
+    replace: false,
+    restrict: "E",
+    templateUrl: "../templates/nav.html",
+    controller: 'navController'
+    }
+  });
+
+
+
 
