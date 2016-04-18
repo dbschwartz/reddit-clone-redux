@@ -6,7 +6,7 @@ var server = require('../../src/server/app');
 var should = chai.should();
 var testUtilities = require('../utilities');
 var testSeed = require('../../src/server/models/seeds/test-seed');
-var Student = require('../../src/server/models/students');
+var Post = require('../../src/server/models/posts');
 
 chai.use(chaiHttp);
 
@@ -26,7 +26,7 @@ describe('post routes', function() {
   });
 
   describe('/GET students', function() {
-    it('should return all students', function(done) {
+    xit('should return all students', function(done) {
       chai.request(server)
       .get('/students')
       .end(function(err, res) {
@@ -47,7 +47,7 @@ describe('post routes', function() {
   });
 
   describe('/GET students/:id', function() {
-    it('should return a single student', function(done) {
+    xit('should return a single student', function(done) {
       Student.findOne(function(err, student) {
         var studentID = student._id;
         chai.request(server)
@@ -72,12 +72,16 @@ describe('post routes', function() {
   describe('/POST students', function() {
     it('should create a new student', function(done) {
       chai.request(server)
-      .post('/students')
+      .post('/posts')
       .send({
-        firstName: 'Michael',
-        lastName: 'Johnson',
-        year: 9999
-      })
+      image: 'http://placehold.it/350x150',
+      name: 'Random',
+      vote: 4,
+      description: 'test',
+      author: "Cart Man",
+      comments: [],
+      timeStamp : new Date
+    })
       .end(function(err, res) {
         res.status.should.equal(200);
         res.type.should.equal('application/json');
@@ -86,16 +90,16 @@ describe('post routes', function() {
         res.body.should.have.property('data');
         res.body.status.should.equal('success');
         res.body.data.should.be.a('object');
-        res.body.data.firstName.should.equal('Michael');
-        res.body.data.lastName.should.equal('Johnson');
-        res.body.data.year.should.equal(9999);
+        res.body.data.image.should.equal('http://placehold.it/350x150');
+        res.body.data.name.should.equal('Random');
+        res.body.data.description.should.equal('test');
         done();
       });
     });
   });
 
   describe('/PUT students/:id', function() {
-    it('should return a single student', function(done) {
+    xit('should return a single student', function(done) {
       Student.findOne(function(err, student) {
         var studentID = student._id;
         chai.request(server)
@@ -119,7 +123,7 @@ describe('post routes', function() {
   });
 
   describe('/DELETE students/:id', function() {
-    it('should delete a student', function(done) {
+    xit('should delete a student', function(done) {
       Student.findOne(function(err, student) {
         var studentID = student._id;
         chai.request(server)
@@ -139,7 +143,7 @@ describe('post routes', function() {
         });
       });
     });
-    it('should not delete a student when there is an error', function(done) {
+    xit('should not delete a student when there is an error', function(done) {
       chai.request(server)
       .delete('/students/1')
       .end(function(err, res) {

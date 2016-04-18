@@ -31,8 +31,8 @@ var data = [
   ];  
 
 function runSeed(done) {
-  var student = new Student(data[0]);
-  student.save(function() {
+  var post = new Post(data[0]);
+  post.save(function() {
     done();
   });
 }

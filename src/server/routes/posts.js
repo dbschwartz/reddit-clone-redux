@@ -32,14 +32,15 @@ router.get('/:id', function(req, res, next) {
 // add student
 router.post('/', function(req, res, next) {
   var post = new Post(req.body);
-  post.save(function(err, post) {
-    if(err) {
-      return next(err);
-    }
+  post.save()
+  .then(function (post) {
     res.status(200).json({
       status: 'success',
       data: post
     });
+  })
+  .catch(function (err) {
+    return next(err);
   });
 });
 

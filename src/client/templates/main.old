@@ -1,0 +1,101 @@
+
+    <!-- sample angular code -->
+    <div ng-show="newPost === true">
+      <div class="media-left media-middle">
+        <a href="#">
+          <img ng-src="{{post.image}}"class="media-object" ng-src="{{post.image}}" alt="..." width="200 rem">
+        
+        </a>
+      </div>
+      <div class="media-body" >
+        <h4 class="media-heading">{{post.name}} 
+        <span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span>
+        <span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>
+        {{post.vote}}
+       
+        <p>{{post.description}}</p>
+
+        <cite>By - {{post.author}} </cite>
+
+
+
+        </h4>
+
+       </div>
+
+     <form name="postForm" ng-submit="addPost(post)">
+                <!--  Review Form -->
+                <h4>Submit a Review</h4>
+                <fieldset class="form-group">
+                   <input ng-model="post.name" type="text" class="form-control" placeholder="Place Name" title="name" />
+                </fieldset>
+                 <fieldset class="form-group">
+                  <input ng-model="post.image" type="text" class="form-control" placeholder="Type Image URL, i.e. try http://placehold.it/350x150" title='image' />
+                </fieldset>
+                <fieldset class="form-group">
+                  <input ng-model="post.vote" type="number" class="form-control" placeholder=" Vote Range Between 1-20" title='vote' />
+                </fieldset>
+                <fieldset class="form-group">
+                  <input ng-model="post.description" type="text" class="form-control" placeholder="Please type description" title='description' />
+                </fieldset>
+                <fieldset class="form-group">
+                  <input ng-model="post.author" type="text" class="form-control" placeholder="Author" title="text" />
+                </fieldset>
+                <fieldset class="form-group">
+                  <input type="submit" class="btn btn-primary pull-right" value="Submit Review" />
+                </fieldset>
+              </form>
+    </div>
+    <div class="media" ng-controller="allPostController" ng-repeat="post in allPosts | filter:search">
+      <div class="media-left media-middle">
+        <a href="#">
+          <img class="media-object" ng-src="{{post.image}}" alt="..." width="200 rem">
+        </a>
+
+      </div>
+      <div class="media-body">
+        <h4 class="media-heading">{{post.name}} 
+        <a href="#" ng-click="post.vote = post.vote + 1" <span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span></a>
+        <a href="#" ng-click="post.vote = post.vote - 1" <span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span></a>
+        {{post.vote}}
+        <cite class="clearfix right">By {{post.author}}</cite>
+        <p>{{post.description}}
+
+        </h4>
+        <span>Posted:</span>
+        <span am-time-ago="post.timeStamp"></span>
+        &nbsp&nbsp&nbsp
+        <span><a href="#" ng-click="post.showComments=!post.showComments"> {{post.comments.length}} comments</a>
+        &nbsp&nbsp&nbsp 
+        <a href="#" ng-click="post.newComment=!post.newComment">New Comment</a></span>
+       </div>
+       <div ng-show="post.showComments">
+          <div ng-repeat="comment in post.comments" class="text.center">
+             <blockquote>
+                  <cite class="clearfix">Author—{{comment.author}}</cite>
+                  {{comment.description}}
+            </blockquote>
+          </div>
+      </div>
+      
+      <div ng-show="post.newComment"  class="text.center">
+              
+
+            <form name="postComment" ng-submit="addComment(post, comment)">
+                <!--  Review Form -->
+                <h4>Submit a Comment</h4>
+                <fieldset class="form-group">
+                   <input ng-model="comment.author" type="text" class="form-control" placeholder="Author Name" title="author" />
+                </fieldset>
+                 <fieldset class="form-group">
+                  <input ng-model="comment.description" type="text" class="form-control" placeholder="Type Image URL, i.e. try http://placehold.it/350x150" title='description' />
+                </fieldset>
+                       <button type="submit" class="btn btn-default">Submit</button>
+              </form>
+      </div>
+
+
+          
+
+    </div>
+
